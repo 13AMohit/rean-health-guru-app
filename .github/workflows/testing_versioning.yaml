@@ -17,10 +17,10 @@ jobs:
       - name: Checkout code
         id: checkout
         uses: actions/checkout@v2
-#         with:
-#           ref: v0.1.0
-#           fetch-depth: 1
-#       - run: ls
+        with:
+          ref: 1.8.245+177
+          fetch-depth: 1
+      - run: ls
       
       - name: create tags
         uses: ./.github/actions/create_tag
