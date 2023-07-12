@@ -16,17 +16,23 @@ jobs:
     steps:
       - name: checout
         uses: actions/checkout@v2
-      - name: New Release Publish
-        uses: release-drafter/release-drafter@v5
-        with:
-          publish : true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get version
-        id: yq
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq -r '.version' 'pubspec.yaml'
+#       - name: New Release Publish
+#         uses: release-drafter/release-drafter@v5
+#         with:
+#           publish : true
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
 
-      - name: Print version
-        run: echo ${{ steps.yq.outputs.result }}
+      - name: Get package version
+        id: get_version
+        run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
+
+      - name: Create Git tag
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "rf-opssupport@kansocloud.com"
+          git tag ${{ steps.get_version.outputs.version }}
+          git push origin ${{ steps.get_version.outputs.version }}
