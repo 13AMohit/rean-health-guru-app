@@ -16,22 +16,36 @@ jobs:
     steps:
       - name: checout
         uses: actions/checkout@v2
-#       - name: New Release Publish
-#         uses: release-drafter/release-drafter@v5
-#         with:
-#           publish : true
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+        
+      - name: tag
+        id: read-version
+        uses: NiklasLehnfeld/flutter-version-number-action@main
+        with:
+          file-path: example/pubspec.yaml
+      - uses: nick-invision/assert-action@v1
+        with:
+          expected: 0.0.1+1
+          actual: ${{ steps.read-version.outputs.version-number }}
 
-      - name: Get package version
-        id: get_version
-        run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
 
-      - name: Create Git tag
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "rf-opssupport@kansocloud.com"
-          git tag ${{ steps.get_version.outputs.version }}
-          git push origin ${{ steps.get_version.outputs.version }}
+
+
+
+
+
+
+
+
+#       - name: Setup Dart
+#         uses: dart-lang/setup-dart@v1
+
+#       - name: Get package version
+#         id: get_version
+#         run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
+
+#       - name: Create Git tag
+#         run: |
+#           git config --global user.name "GitHub Actions"
+#           git config --global user.email "rf-opssupport@kansocloud.com"
+#           git tag ${{ steps.get_version.outputs.version }}
+#           git push origin ${{ steps.get_version.outputs.version }}
