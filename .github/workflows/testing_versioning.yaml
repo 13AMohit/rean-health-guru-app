@@ -16,31 +16,25 @@ jobs:
     steps:
       - name: checout
         uses: actions/checkout@v2
-        
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-
-      - name: Get package version
-        id: get_version
-        run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
       
-      - name: check tag
-        uses: mukunku/tag-exists-action@v1.2.0
-        id: checkTag
-        with: 
-          tag: ${{ steps.get_version.outputs.version }}
-          
-#       - name: Check if tag exists
-#         id: tag_exists
-#         run: |
-#           if git rev-parse -q --verify "refs/tags/${{ steps.get_version.outputs.version }}"; then
-#             echo "::set-output name=exists::true"
-#           else
-#             echo "::set-output name=exists::false"
-#           fi
+      - name: create tags
+        uses: ./.github/actions/create_tag
+        
+#       - name: Setup Dart
+#         uses: dart-lang/setup-dart@v1
 
-      - name: Create Git tag
-        if: ${{ steps.checkTag.outputs.exists == 'false' }}
-        run: |
-          git tag ${{ steps.get_version.outputs.version }}
-          git push origin ${{ steps.get_version.outputs.version }}
+#       - name: Get package version
+#         id: get_version
+#         run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
+      
+#       - name: check tag
+#         uses: mukunku/tag-exists-action@v1.2.0
+#         id: checkTag
+#         with: 
+#           tag: ${{ steps.get_version.outputs.version }}
+          
+#       - name: Create Git tag
+#         if: ${{ steps.checkTag.outputs.exists == 'false' }}
+#         run: |
+#           git tag ${{ steps.get_version.outputs.version }}
+#           git push origin ${{ steps.get_version.outputs.version }}
