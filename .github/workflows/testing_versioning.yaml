@@ -14,7 +14,11 @@ jobs:
     steps:
       - name: checout
         uses: actions/checkout@v2
-      - name: versioning with pubspec
-        uses: NiklasLehnfeld/flutter-version-number-action@main
+      - name: Get version
+        id: yq
+        uses: mikefarah/yq@master
         with:
-          file-path: ./pubspec.yaml
+          cmd: yq -r '.version' 'pubspec.yaml'
+
+      - name: Print version
+        run: echo ${{ steps.yq.outputs.result }}
