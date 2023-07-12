@@ -12,11 +12,9 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-      - name: Get version
-        id: yq
-        uses: mikefarah/yq@master
+      - name: checout
+        uses: actions/checkout@v2
+      - name: versioning with pubspec
+        uses: NiklasLehnfeld/flutter-version-number-action@main
         with:
-          cmd: yq -r '.version' 'pubspec.yaml'
-
-      - name: Print version
-        run: echo ${{ steps.yq.outputs.result }}
+          file-path: ./pubspec.yaml
