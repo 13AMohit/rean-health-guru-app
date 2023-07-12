@@ -30,7 +30,6 @@ jobs:
         run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
 
       - name: Create Git tag
-        if: github.ref == 'refs/heads/main'
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "rf-opssupport@kansocloud.com"
