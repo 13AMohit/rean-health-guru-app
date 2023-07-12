@@ -14,11 +14,16 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-#       - name: checout
-#         uses: actions/checkout@v2
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+        with:
+          ref: v0.1.0
+          fetch-depth: 1
+      - run: ls
       
-      - name: create tags
-        uses: ./.github/actions/create_tag
+#       - name: create tags
+#         uses: ./.github/actions/create_tag
         
 #       - name: Setup Dart
 #         uses: dart-lang/setup-dart@v1
