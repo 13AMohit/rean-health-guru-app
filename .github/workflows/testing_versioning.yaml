@@ -17,34 +17,14 @@ jobs:
       - name: checout
         uses: actions/checkout@v2
         
-      - name: tag
-        id: read-version
-        uses: NiklasLehnfeld/flutter-version-number-action@main
-        with:
-          file-path: ./pubspec.yaml
-      - uses: nick-invision/assert-action@v1
-        with:
-          actual: ${{ steps.read-version.outputs.version-number }}
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
 
+      - name: Get package version
+        id: get_version
+        run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
 
-
-
-
-
-
-
-
-
-#       - name: Setup Dart
-#         uses: dart-lang/setup-dart@v1
-
-#       - name: Get package version
-#         id: get_version
-#         run: echo "::set-output name=version::$(awk '/^version:/ {print $2}' pubspec.yaml)"
-
-#       - name: Create Git tag
-#         run: |
-#           git config --global user.name "GitHub Actions"
-#           git config --global user.email "rf-opssupport@kansocloud.com"
-#           git tag ${{ steps.get_version.outputs.version }}
-#           git push origin ${{ steps.get_version.outputs.version }}
+      - name: Create Git tag
+        run: |
+          git tag ${{ steps.get_version.outputs.version }}
+          git push origin ${{ steps.get_version.outputs.version }}
