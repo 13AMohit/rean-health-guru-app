@@ -14,8 +14,8 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-      - name: checout
-        uses: actions/checkout@v2
+#       - name: checout
+#         uses: actions/checkout@v2
       
       - name: create tags
         uses: ./.github/actions/create_tag
