@@ -24,12 +24,15 @@ jobs:
         with:
           cmd: yq -r '.version' 'pubspec.yaml'
 
-      - name: Print version
-        run: echo ${{ steps.yq.outputs.result }}
+#       - name: check tag
+#         uses: mukunku/tag-exists-action@v1.2.0
+#         id: checkTag
+#         with: 
+#           tag: v${{ steps.yq.outputs.result }}
       
       - name: Create Git tag
         shell: bash
-        if: ${{ steps.checkTag.outputs.exists == 'false' }}
+#         if: ${{ steps.checkTag.outputs.exists == 'false' }}
         run: |
          git tag v${{ steps.yq.outputs.result }}
          git push origin v${{ steps.yq.outputs.result }}
