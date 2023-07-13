@@ -28,7 +28,7 @@ jobs:
         id: new_publish
         uses: release-drafter/release-drafter@v5
         with:
-          tag_version: v${{ steps.yq.outputs.result }}
+          tag: v${{ steps.yq.outputs.result }}
           publish : true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
