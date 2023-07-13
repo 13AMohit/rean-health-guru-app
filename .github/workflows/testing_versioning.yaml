@@ -26,6 +26,13 @@ jobs:
 
       - name: Print version
         run: echo ${{ steps.yq.outputs.result }}
+      
+      - name: Create Git tag
+        shell: bash
+        if: ${{ steps.checkTag.outputs.exists == 'false' }}
+        run: |
+         git tag v${{ steps.yq.outputs.result }}
+         git push origin v${{ steps.yq.outputs.result }}
           
 #       - name: Create Git tag
 #         shell: bash
