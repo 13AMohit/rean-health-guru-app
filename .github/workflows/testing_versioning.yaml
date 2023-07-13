@@ -17,14 +17,23 @@ jobs:
       - name: Checkout code
         id: checkout
         uses: actions/checkout@v2
-#         with:
-#           ref: 1.8.245+177
-#           fetch-depth: 1
-#       - run: ls
-      
-      - name: create tags
-        uses: ./.github/actions/create_tag
         
+      - name: Get version
+        id: yq
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -r '.version' 'pubspec.yaml'
+      - run: echo {{ steps.yq.outputs.version }}
+          
+#       - name: Create Git tag
+#         shell: bash
+#         if: ${{ steps.checkTag.outputs.exists == 'false' }}
+#         run: |
+#           git tag v${{ steps.yq.outputs.version }}
+#           git push origin v${{ steps.yq.outputs.version }}
+
+
+
 #       - name: Setup Dart
 #         uses: dart-lang/setup-dart@v1
 
