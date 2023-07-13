@@ -23,7 +23,9 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq -r '.version' 'pubspec.yaml'
-      - run: echo {{ steps.yq.outputs }}
+
+      - name: Print version
+        run: echo ${{ steps.yq.outputs.result }}
           
 #       - name: Create Git tag
 #         shell: bash
