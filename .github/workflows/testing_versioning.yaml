@@ -28,7 +28,7 @@ jobs:
         id: "tag_create"
         with:
           tag: v${{ steps.yq.outputs.result }}
-          tag_exists_error: false
+          force_push_tag: true
 
 #       - name: check tag
 #         uses: mukunku/tag-exists-action@v1.2.0
