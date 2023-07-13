@@ -24,9 +24,11 @@ jobs:
         with:
           cmd: yq -r '.version' 'pubspec.yaml'
           
-      - uses: actions-ecosystem/action-push-tag@v1
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
         with:
           tag: v${{ steps.yq.outputs.result }}
+          tag_exists_error: false
 
 #       - name: check tag
 #         uses: mukunku/tag-exists-action@v1.2.0
