@@ -22,7 +22,7 @@ jobs:
      - run: ls
      - uses: subosito/flutter-action@v1
        with:
-         flutter-version: 'pubspec'
+         flutter-version: ./pubspec.yaml
 
 
 
