@@ -26,6 +26,8 @@ jobs:
        uses: NiklasLehnfeld/flutter-version-number-action@main
        with:
          file-path: ./pubspec.yaml
+     
+     - run: echo ${{ steps.read-version.outputs.version-number }}
 
        
 
