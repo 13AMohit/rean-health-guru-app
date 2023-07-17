@@ -27,7 +27,11 @@ jobs:
        with:
          file-path: ./pubspec.yaml
      
-     - run: echo ${{ steps.read-version.outputs.version-number }}
+     - name: Extract Version Number
+       id: extract-version
+       run: echo "::set-output name=version::$(echo ${{ steps.read-version.outputs.version-number }} | cut -d'+' -f1)"
+      
+     - run: echo ${{ steps.extract-version.outputs.version }}
 
        
 
