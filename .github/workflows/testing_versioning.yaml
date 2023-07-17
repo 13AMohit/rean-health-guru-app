@@ -24,7 +24,7 @@ jobs:
           
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: 'pubspec.yaml'
+          flutter-version: 'pubspec'
 
 
 
