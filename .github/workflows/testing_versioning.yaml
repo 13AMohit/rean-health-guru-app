@@ -20,9 +20,13 @@ jobs:
        with:
           fetch-depth: 0
      - run: ls
-     - uses: subosito/flutter-action@v1
-       with:
-         flutter-version: ./pubspec.yaml
+     - name: Get version from pubspec.yaml
+       run: |
+          $version = (Get-Content pubspec.yaml | Select-String 'version:[^^]*' | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
+          echo "APP_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
+     - name: Use the value
+       run: |
+          echo "${{ env.APP_VERSION }}"
 
 
 
