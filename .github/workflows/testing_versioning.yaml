@@ -14,11 +14,13 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        id: checkout
-        uses: actions/checkout@v2
-        with:
-          field_depth: 0
+    
+      - uses: actions/checkout@v2
+#       - name: Checkout code
+#         id: checkout
+#         uses: actions/checkout@v2
+#         with:
+#           field_depth: 0
           
       - uses: jacopocarlini/action-autotag@stable
         with:
