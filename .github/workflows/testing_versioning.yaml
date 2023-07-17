@@ -22,11 +22,9 @@ jobs:
 #         with:
 #           field_depth: 0
           
-      - name: Create GitHub Tag
-        uses: maierj/pubspec-version-tag-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: 'pubspec.yaml'
 
 
 
