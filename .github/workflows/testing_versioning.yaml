@@ -18,24 +18,32 @@ jobs:
         id: checkout
         uses: actions/checkout@v2
         with:
-          ref: v1.8.245+177
-          field_depth: 1
-      - run: ls
-        
-      - name: Get version
-        id: yq
-        uses: mikefarah/yq@master
+          field_depth: 0
+          
+      - uses: jacopocarlini/action-autotag@stable
         with:
-          cmd: yq -r '.version' 'pubspec.yaml'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+
+
+
+
+# - run: ls
         
-      - name: New Release Publish
-        id: new_publish
-        uses: release-drafter/release-drafter@v5
-        with:
-          tag: v${{ steps.yq.outputs.result }}
-          publish : true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Get version
+#         id: yq
+#         uses: mikefarah/yq@master
+#         with:
+#           cmd: yq -r '.version' 'pubspec.yaml'
+        
+#       - name: New Release Publish
+#         id: new_publish
+#         uses: release-drafter/release-drafter@v5
+#         with:
+#           tag: v${{ steps.yq.outputs.result }}
+#           publish : true
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
       
