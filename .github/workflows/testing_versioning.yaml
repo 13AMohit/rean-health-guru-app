@@ -20,14 +20,29 @@ jobs:
        with:
           fetch-depth: 0
      - run: ls
-     - uses: actions/checkout@v2
      
-     - id: tag
+     - name: Get version
+       id: tag
        run: |
-        VERSION=`cat ./pubspec.yaml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
-        echo "::set-output name=version::$(echo $VERSION | cut -d'+' -f1)"
+         VERSION=`cat ./pubspec.yaml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
+         echo "::set-output name=version::$(echo $VERSION | cut -d'+' -f1)"
         
-     - run: echo ${{ steps.tag.outputs.version }}
+     - name: New Release Publish
+       id: new_publish
+       uses: release-drafter/release-drafter@v5
+       with:
+         tag: v${{ steps.tag.outputs.version }}
+         publish : true
+       env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - uses: actions/checkout@v2
+     
+#      - id: tag
+#        run: |
+#         VERSION=`cat ./pubspec.yaml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
+#         echo "::set-output name=version::$(echo $VERSION | cut -d'+' -f1)"
+        
+#      - run: echo ${{ steps.tag.outputs.version }}
      
 #      - id: read-version
 #        uses: NiklasLehnfeld/flutter-version-number-action@main
