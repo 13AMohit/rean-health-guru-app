@@ -22,11 +22,10 @@ jobs:
 #         with:
 #           field_depth: 0
           
-      - uses: jacopocarlini/action-autotag@stable
-        with:
-          package_root: ./pubspec.yaml
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
+      - name: Create GitHub Tag
+        uses: maierj/pubspec-version-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
