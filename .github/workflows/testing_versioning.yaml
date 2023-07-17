@@ -20,14 +20,14 @@ jobs:
        with:
           fetch-depth: 0
      - run: ls
-     - name: Get version from pubspec.yaml
-       run: |
-          $version = (Get-Content pubspec.yaml | Select-String 'version:[^^]*' | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
-          echo "APP_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append
-     - name: Use the value
-       run: |
-          echo "${{ env.APP_VERSION }}"
+     - uses: actions/checkout@v2
+     
+     - id: read-version
+       uses: NiklasLehnfeld/flutter-version-number-action@main
+       with:
+         file-path: ./pubspec.yaml
 
+       
 
 
 # - run: ls
