@@ -22,16 +22,23 @@ jobs:
      - run: ls
      - uses: actions/checkout@v2
      
-     - id: read-version
-       uses: NiklasLehnfeld/flutter-version-number-action@main
-       with:
-         file-path: ./pubspec.yaml
+     - id: tag
+       run: |
+        VERSION=`cat ./pubspec.yaml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
+        echo "::set-output name=version::$(echo $VERSION | cut -d'+' -f1)"
+        
+     - run: echo ${{ steps.tag.outputs }}
      
-     - name: Extract Version Number
-       id: extract-version
-       run: echo "::set-output name=version::$(echo ${{ steps.read-version.outputs.version-number }} | cut -d'+' -f1)"
+#      - id: read-version
+#        uses: NiklasLehnfeld/flutter-version-number-action@main
+#        with:
+#          file-path: ./pubspec.yaml
+     
+#      - name: Extract Version Number
+#        id: extract-version
+#        run: echo "::set-output name=version::$(echo ${{ steps.read-version.outputs.version-number }} | cut -d'+' -f1)"
       
-     - run: echo ${{ steps.extract-version.outputs.version }}
+#      - run: echo ${{ steps.extract-version.outputs.version }}
 
        
 
