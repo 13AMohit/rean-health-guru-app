@@ -27,7 +27,7 @@ jobs:
         VERSION=`cat ./pubspec.yaml | grep -o 'version:[^:]*' | cut -f2 -d":" | xargs`
         echo "::set-output name=version::$(echo $VERSION | cut -d'+' -f1)"
         
-     - run: echo ${{ steps.tag.outputs }}
+     - run: echo ${{ steps.tag.outputs.version }}
      
 #      - id: read-version
 #        uses: NiklasLehnfeld/flutter-version-number-action@main
