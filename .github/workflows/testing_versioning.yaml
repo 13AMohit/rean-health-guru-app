@@ -22,6 +22,7 @@ jobs:
           
       - uses: jacopocarlini/action-autotag@stable
         with:
+          package_root: ./pubspec.yaml
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
 
